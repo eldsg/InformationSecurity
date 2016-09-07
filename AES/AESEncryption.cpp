@@ -50,7 +50,7 @@ const string sBoxOutput[] = {
 	"E1","F8","98","11","69","D9","8E","94","9B","1E","87","E9","CE","55","28","DF",
 	"8C","A1","89","0D","BF","E6","42","68","41","99","2D","0F","B0","54","BB","16",
 };
-
+map<char, string> hexToAscii;
 map<string, string> sBox;
 map<string, string> sInverseBox;
 void keySchedule(int a);
@@ -58,6 +58,24 @@ void roundKey(int a);
 void subBytes();
 void shiftRows();
 void encMixColumns();
+void hexToAsciiInit(){
+	hexToAscii['0'] = "0000";
+	hexToAscii['1'] = "0001";
+	hexToAscii['2'] = "0010";
+	hexToAscii['3'] = "0011";
+	hexToAscii['4'] = "0100";
+	hexToAscii['5'] = "0101";
+	hexToAscii['6'] = "0110";
+	hexToAscii['7'] = "0111";
+	hexToAscii['8'] = "1000";
+	hexToAscii['9'] = "1001";
+	hexToAscii['A'] = "1010";
+	hexToAscii['B'] = "1011";
+	hexToAscii['C'] = "1100";
+	hexToAscii['D'] = "1101";
+	hexToAscii['E'] = "1110";
+	hexToAscii['F'] = "1111";
+}
 void boxInit(){
 	for(int i = 0; i<256; i++){
 		sBox[sBoxInput[i]] = sBoxOutput[i];
@@ -73,7 +91,7 @@ void printPlainText(){
 	printf("Plain Text is : \n");
 	for(int i = 0; i<4; i++){
 		for(int j = 0; j<4; j++){
-			cout << plainTextHex[i][j] << " ";
+			cout << plainTextHex[i][j] << " (" << hexToAscii[plainTextHex[i][j][0]] + hexToAscii[plainTextHex[i][j][1]] << ")  ";
 		}
 		cout << endl;
 	}
@@ -82,7 +100,7 @@ void printCipherKey(){
 	printf("Cipher Key is : \n");
 	for(int i = 0; i < 4; i++){
 		for(int j = 0; j<4; j++){
-			cout << cipherKeyHex[i][j] << " ";
+			cout << cipherKeyHex[i][j] << " (" << hexToAscii[cipherKeyHex[i][j][0]] + hexToAscii[cipherKeyHex[i][j][1]] << ")  ";
 		}
 		cout << endl;
 	}
@@ -136,7 +154,7 @@ void process(int count){
 			subBytes();
 			printf("%d After shiftRows : \n", i);
 			shiftRows();
-			printf("%d OutPut : \n", i+1);
+			printf("OutPut : \n");
 			roundKey(i);
 		}
 	}
@@ -151,7 +169,7 @@ void shiftRows(){
 	}
 	for(int i = 0; i<4; i++){
 		for(int j = 0; j<4; j++){
-			cout << plainTextHex[i][j] << " ";
+			cout << plainTextHex[i][j] << " (" << hexToAscii[plainTextHex[i][j][0]] + hexToAscii[plainTextHex[i][j][1]] << ")  ";
 		}
 		cout << endl;
 	}
@@ -160,7 +178,7 @@ void subBytes(){
 	for(int i = 0; i< 4; i++){
 		for(int j = 0; j<4; j++){
 			plainTextHex[i][j] = sBox[plainTextHex[i][j]];
-			cout << plainTextHex[i][j] << " ";
+			cout << plainTextHex[i][j] << " (" << hexToAscii[plainTextHex[i][j][0]] + hexToAscii[plainTextHex[i][j][1]] << ")  ";
 		}
 		cout << endl;
 	}	
@@ -204,7 +222,7 @@ void encMixColumns(){
 	}
 	for(int i = 0; i < 4; i++){
 		for(int j = 0; j < 4; j++){
-			cout << plainTextHex[i][j] << " ";
+			cout << plainTextHex[i][j] << " (" << hexToAscii[plainTextHex[i][j][0]] + hexToAscii[plainTextHex[i][j][1]] << ")  ";
 		}
 		cout << endl;
 	}
@@ -228,7 +246,7 @@ void roundKey(int con){
 	}
 	for(int i = 0; i<4; i++){
 		for(int j = 0; j<4; j++){
-			cout << plainTextHex[i][j] << " ";
+			cout << plainTextHex[i][j] << " (" << hexToAscii[plainTextHex[i][j][0]] + hexToAscii[plainTextHex[i][j][1]] << ")  ";
 		}
 		cout << endl;
 	}
@@ -283,7 +301,7 @@ void keySchedule(int con){
 		cout << con+1 << " Round Key : " << endl;
 		for(int i = 0; i<4; i++){
 			for(int j = 0; j<4; j++){
-				cout << cipherKeyHex[i][j] << " ";
+				cout << cipherKeyHex[i][j] << " (" << hexToAscii[cipherKeyHex[i][j][0]] + hexToAscii[cipherKeyHex[i][j][1]] << ")  ";
 			}
 			cout << endl;
 		}
@@ -302,6 +320,7 @@ void testinit(){
 }
 int main(){
 	boxInit();
+	hexToAsciiInit();
 //	testinit();
 	inputPlainText();
 	inputCipherKey();
