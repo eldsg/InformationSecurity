@@ -1,0 +1,13 @@
+<head>
+  <title>slotMachineApp</title>
+</head>
+
+<body>
+  {{> hello}}
+</body>
+
+<template name="hello">
+  <button>Change Name</button>
+  <input type="text" id="name">
+  <p>Name : {{counter}} {{TemplateVar.get "counter"}}</p>
+</template>
