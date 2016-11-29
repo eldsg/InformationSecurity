@@ -1,0 +1,25 @@
+<head>
+  <title>SlotMachineDapp</title>
+</head>
+
+<body>
+
+  {{> hello}}
+  {{> info}}
+</body>
+
+<template name="hello">
+    <button id="deposit">Deposit</button>
+    <button id="slots">Slots</button>
+    <button id="withdraw">Withdraw</button>
+    <p>Owner Amount : {{TemplateVar.get "counter"}} </p>
+    <p>User Amount : {{TemplateVar.get "user"}} </p>
+    <p>Slots array : </p>
+    <p> {{TemplateVar.get "zero"}}  {{TemplateVar.get "one"}}  {{TemplateVar.get "two"}} </p>
+    <p> {{TemplateVar.get "three"}}  {{TemplateVar.get "four"}}  {{TemplateVar.get "five"}} </p>
+    <p> {{TemplateVar.get "six"}}  {{TemplateVar.get "seven"}}  {{TemplateVar.get "eight"}} </p>
+</template>
+
+<template name="info">
+
+</template>
